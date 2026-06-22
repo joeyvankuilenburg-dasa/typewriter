@@ -92,7 +92,7 @@ final class MarkdownStyler {
     }
 
     private func applyHeading(level: Int, markerLen: Int, range: NSRange, in storage: NSTextStorage) {
-        let sizes: [Int: CGFloat] = [1: 32, 2: 28, 3: 24, 4: 22, 5: 21, 6: 20]
+        let sizes: [Int: CGFloat] = [1: 26, 2: 24, 3: 22, 4: 21, 5: 20, 6: 20]
         let size = sizes[level] ?? 17
         let weight: NSFont.Weight = level <= 2 ? .bold : .semibold
 

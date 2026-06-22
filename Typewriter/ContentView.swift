@@ -7,8 +7,8 @@ struct ContentView: View {
     var body: some View {
         TypewriterEditor(text: $document.text)
             .frame(minWidth: 500, minHeight: 400)
-            .background(WindowConfigurator())
             .ignoresSafeArea()
+            .background(WindowConfigurator())
     }
 }
 
@@ -17,12 +17,13 @@ private struct WindowConfigurator: NSViewRepresentable {
         let view = NSView()
         DispatchQueue.main.async {
             guard let window = view.window else { return }
-            // Transparent title bar that blends into the editor background
+            let bg = NSColor(srgbRed: 0.969, green: 0.969, blue: 0.969, alpha: 1)
+            window.backgroundColor = bg
             window.titlebarAppearsTransparent = true
             window.styleMask.insert(.fullSizeContentView)
-            window.backgroundColor = NSColor(srgbRed: 0.969, green: 0.969, blue: 0.969, alpha: 1)
             window.isMovableByWindowBackground = true
-            window.titleVisibility = .visible
+            // Remove the separator line under the title bar
+            window.titlebarSeparatorStyle = .none
         }
         return view
     }

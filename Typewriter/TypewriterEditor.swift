@@ -3,7 +3,7 @@ import AppKit
 
 private let columnWidth: CGFloat = 680
 private let minHorizontalPadding: CGFloat = 48
-private let verticalPadding: CGFloat = 60
+private let verticalPadding: CGFloat = 80 // extra headroom for transparent title bar
 private let bodySize: CGFloat = 17
 
 struct TypewriterEditor: NSViewRepresentable {
