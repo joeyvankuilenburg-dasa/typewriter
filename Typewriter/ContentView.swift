@@ -8,27 +8,24 @@ struct ContentView: View {
         TypewriterEditor(text: $document.text)
             .frame(minWidth: 500, minHeight: 400)
             .background(WindowConfigurator())
+            .ignoresSafeArea()
     }
 }
 
-// Reaches up to the NSWindow and applies macOS-native window chrome settings.
 private struct WindowConfigurator: NSViewRepresentable {
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
-        // Defer until the view is in the window hierarchy
         DispatchQueue.main.async {
             guard let window = view.window else { return }
-            window.toolbarStyle = .unified
-            window.titlebarSeparatorStyle = .automatic
+            // Transparent title bar that blends into the editor background
+            window.titlebarAppearsTransparent = true
+            window.styleMask.insert(.fullSizeContentView)
+            window.backgroundColor = NSColor(srgbRed: 0.969, green: 0.969, blue: 0.969, alpha: 1)
             window.isMovableByWindowBackground = true
+            window.titleVisibility = .visible
         }
         return view
     }
 
-    func updateNSView(_ nsView: NSView, context: Context) {
-        DispatchQueue.main.async {
-            guard let window = nsView.window else { return }
-            window.toolbarStyle = .unified
-        }
-    }
+    func updateNSView(_ nsView: NSView, context: Context) {}
 }
