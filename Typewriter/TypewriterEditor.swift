@@ -29,11 +29,18 @@ struct TypewriterEditor: NSViewRepresentable {
             object: scrollView
         )
 
+        // Center the column once the scroll view has been laid out
+        DispatchQueue.main.async {
+            context.coordinator.centerColumn(textView: textView, in: scrollView)
+        }
+
         return scrollView
     }
 
     func updateNSView(_ scrollView: NSScrollView, context: Context) {
         guard let textView = scrollView.documentView as? NSTextView else { return }
+        // Re-center on every SwiftUI update pass (e.g. window resize via SwiftUI)
+        context.coordinator.centerColumn(textView: textView, in: scrollView)
         if textView.string != text {
             let selected = textView.selectedRanges
             textView.string = text
